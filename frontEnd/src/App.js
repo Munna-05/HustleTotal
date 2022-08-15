@@ -6,6 +6,7 @@ import React from 'react';
 import Home from './Pages/Home/Home';
 import LoginPage from './Pages/Home/LoginPage';
 import Navbar from './components/Navbar';
+import { SignupPage } from './Pages/Home/SignupPage';
 
 function App() {
   const name = 'pewDePie'
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/login' element={<LoginPage/>}/>
+          <Route path='/signup' element={<SignupPage/>} />
 
         </Routes>
       </BrowserRouter>

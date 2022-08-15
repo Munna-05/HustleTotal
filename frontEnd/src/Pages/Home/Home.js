@@ -7,7 +7,7 @@ import { MdCard } from '../../components/MdCard';
 
 const Home = () => {
     return (
-        <div>
+        <div className=''>
             <div className='App'>
                 <Navbar />
             </div>
@@ -21,11 +21,18 @@ const Home = () => {
             </div>
 
 
-            <div className='grid grid-cols-2'>
+            <div className='grid sm:grid-cols-1 transition duration-500 lg:grid-cols-2 md:grid-cols-2 '> 
                 <Card name="Unbox Therapy" subs='1,289,000' />
                 <Card name="Unbox Therapy" subs='1,289,000' />
             </div>
             <div className='grid grid-cols-3'>
+                <MdCard name='Xtreme' subs='345,000' />
+                <MdCard name='Xtreme' subs='345,000' />
+                <MdCard name='Xtreme' subs='345,000' />
+                <MdCard name='Xtreme' subs='345,000' />
+                <MdCard name='Xtreme' subs='345,000' />
+                <MdCard name='Xtreme' subs='345,000' />
+                
                 <MdCard name='Xtreme' subs='345,000' />
                 <MdCard name='Xtreme' subs='345,000' />
                 <MdCard name='Xtreme' subs='345,000' />

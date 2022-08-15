@@ -4,8 +4,8 @@ import './Card.css'
 export const Card = (props) => {
     return (
         <div className=''>
-            <div className='row flex justify-center'>
-                <div class="max-w-xl border  hover:scale-105 bg-slate-300 hover:bg-slate-200 hover:transition duration-700 ease-in-out m-5 rounded-xl overflow-hidden shadow-slate-900 shadow-lg hover:shadow-md">
+            <div className=' flex justify-center'>
+                <div class="max-w-xxl border duration-500 hover:scale-105 bg-slate-300 hover:bg-slate-200 hover:transition duration-700 ease-in-out m-4 rounded-xl overflow-hidden shadow-slate-900 shadow-lg hover:shadow-md">
                    
                     <div class="px-6 py-4 h-40 flex">
                         <div>
