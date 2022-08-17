@@ -8,7 +8,8 @@ const mongoose = require('mongoose')
 
 const apiKey = "AIzaSyC87sI8sEK3S7YP9smCG1EhWihdUh4fJCs"
 
-const apiUrl = "https://www.googleapis.com/youtube/v3";
+const apiUrl = "https://www.googleapis.com/youtube/v3"; 
+
 // const youtube = google.youtube({
 //   version: "v3",
 //   auth: apiKey,

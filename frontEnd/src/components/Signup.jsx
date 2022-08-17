@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
 
 export const Signup = () => {
     const [username, setusername] = useState('')
@@ -13,6 +14,7 @@ export const Signup = () => {
     const [rpassErr,setRpassErr]=useState('')
     const [error,setError]=useState(false)
     const [bError,setBerror]=useState('')
+    const navigate =useNavigate()
     
 
 
@@ -45,13 +47,14 @@ export const Signup = () => {
             setEmailErr("") 
         }
 
-         if(error==true) {
+         if(error==false) {
             console.log(username, password, email)
             axios.post('http://localhost:5000/auth/signup', data).then((response) => {
                 console.log(response.data)
                 if(response.data=="invalid credentials"){
                     setBerror("Check Data Entered")
                 }else{
+                    navigate('/login')
                    
                 }
             })

@@ -5,6 +5,7 @@ const controller=require('../controllers/authControl')
 
 
 router.post('/signup',controller.register)
+router.post('/login',controller.login)
 
 
-module.exports = router;
+module.exports = router; 
