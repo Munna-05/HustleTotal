@@ -1,11 +1,13 @@
-const express = require('express')
+import express from 'express' 
 const router=express.Router()
-const controller=require('../controllers/authControl')
+import {controller} from '../controllers/authControl.js'
+import {auth} from '../middleware/middle.js'
 
 
 
 router.post('/signup',controller.register)
 router.post('/login',controller.login)
+router.get('/youtube',controller.getYoutube)
 
 
-module.exports = router; 
+export default router

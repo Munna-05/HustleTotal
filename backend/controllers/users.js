@@ -1,7 +1,10 @@
-const express=require('express')
 
+import express from 'express'
 
-exports.register=async (req,res)=>{
-    console.log(req.body)
-    res.send('hello ')
+export default {
+
+    register:async (req,res)=>{
+        console.log(req.body)
+        res.send('hello ')
+    }
 }

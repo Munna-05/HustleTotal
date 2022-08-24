@@ -1,5 +1,6 @@
 import React from 'react'
 import './Card.css'
+import { Link } from 'react-router-dom'
 
 export const Card = (props) => {
     return (
@@ -19,16 +20,18 @@ export const Card = (props) => {
                             </div>
                         
                        <div className='my-3'>
-                       <p class="text-gray-700 max-w-sm px-3 h-30 text-xs">
+                       <p class="text-gray-700 max-w-sm px-3 h-40 text-xs">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                        </p>
-                       </div>
                        <span className='capitalize text-sm'>total subscribers</span>
                         <span className='px-3 h-10 py-0 text-red-700'>{props.subs}</span>
+                        </p>
+                       </div>
                         </div>
                     </div>
                     <div class="px-6 flex justify-end pt-4 pb-2">
+                        <Link to='/profile'>
                         <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full px-6 py-1 text-sm font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Profile</span>
+                        </Link>
                         <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full px-2 py-1 text-sm font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Promotion</span>
                         <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full px-5 py-1 text-sm font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Donate</span>
                     </div>
