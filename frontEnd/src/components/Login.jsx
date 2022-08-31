@@ -40,7 +40,7 @@ export const Login = () => {
         console.log(formValue.email)
         if (formValue.email === "") {
             console.log('email errr')
-            toast.error('Enter Correct Email Address!', { position: toast.POSITION.BOTTOM_CENTER })
+            toast.error('Enter Correct Email Address!', { position: toast.POSITION.TOP_RIGHT })
 
             setError(true)
 
@@ -52,7 +52,7 @@ export const Login = () => {
         }
         if (formValue.password === "") {
             setError(true)
-            toast.error('Enter Correct Password!', { position: toast.POSITION.BOTTOM_CENTER })
+            toast.error('Enter Correct Password!', { position: toast.POSITION.TOP_RIGHT })
 
             setPassErr('Enter your Password')
 
@@ -72,7 +72,7 @@ export const Login = () => {
             //     } else if(response.data=='Invalid Password'){
             //         setBackendmsg('Invalid Password')
 
-            //     }else{
+            //     }else{ 
             //         console.log(response.data.accessToken) 
             //         let data = JSON.stringify(response.data)
             //         localStorage.setItem('userData',data)

@@ -38,7 +38,7 @@ mongoose.connect('mongodb+srv://munna:munna123@cluster0.hcyg4.mongodb.net/Hustle
 
  
 app.use('/auth',authRouter)
-app.use('/user',userRouter) 
+app.use('/user',userRouter)   
 
 
 

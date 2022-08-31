@@ -9,6 +9,8 @@ import Navbar from './components/Navbar';
 import { SignupPage } from './Pages/Home/SignupPage';
 import {AboutPage} from './Pages/Home/AboutPage'
 import {ProfilePage} from './Pages/Home/ProfilePage'
+import AdminLogin from './Pages/Home/AdminLogin';
+import AdminPage from './Pages/Home/AdminPage';
 
 function App() {
 
@@ -22,7 +24,9 @@ function App() {
           
           <Route path='/signup' element={<SignupPage/>} />
           <Route path='/about' element={<AboutPage/>}/>
-          <Route path='/profile' element={<ProfilePage/>}/>
+          <Route path='/profile/:id' element={<ProfilePage/>}/>
+          <Route path='/admin' element={<AdminLogin/>}/>
+          <Route path='/adminPage' element={<AdminPage/>}/>
 
         </Routes>
       </BrowserRouter>

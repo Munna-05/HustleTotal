@@ -13,6 +13,7 @@ export const Signup = () => {
     const [confirmPass, setConfirmPass] = useState('')
     const [nameError, setNameErr] = useState('')
     const [emailErr, setEmailErr] = useState('')
+    const [channel,setChannel] = useState('')
     const [passErr, setPassErr] = useState('')
     const [rpassErr, setRpassErr] = useState('')
     const [error, setError] = useState(false)
@@ -32,6 +33,7 @@ export const Signup = () => {
         const data = {
             name: username,
             email: email,
+            channelName:channel,
             password: password,
             rpass: confirmPass
 
@@ -62,7 +64,7 @@ export const Signup = () => {
             toast.error('Password is not Matching',{position:toast.POSITION.BOTTOM_CENTER})
         }else{
             setError(false)
-            
+
         }
 
         if (error == false) {
@@ -125,6 +127,13 @@ export const Signup = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         name="email"
                         placeholder="Email" />
+                    <input
+                        type="text"
+                        class="block border border-grey-light w-full p-3 rounded mb-4"
+                        value={channel}
+                        onChange={(e) => setChannel(e.target.value)}
+                        name="channelName"
+                        placeholder="Youtube Channel Name" required />
 
                     <input
                         type="password"
