@@ -6,6 +6,9 @@ const channelSchema = mongoose.Schema({
     userId:{
         type:String
     },
+    channelId:{
+        type:String
+    },
     channelTitle:{
         type:String
     },

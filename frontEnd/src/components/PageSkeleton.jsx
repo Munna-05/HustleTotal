@@ -1,29 +1,14 @@
 import React from 'react'
-import { useState } from 'react'
-import Post from './Post'
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
-import axios from 'axios'
-import 'youtube-video-js'
-import { YoutubeVideoElement } from 'youtube-video-js'
 
-export const Profile = (props) => {
-    const [video, setVideo] = useState(true)
-    useEffect(() => {
-        console.log("channel id =", props.channelId)
-        let chID=props.channelId
-        axios.get(`http://localhost:5001/auth/channelVideos/${chID}`).then((response)=>{
-            console.log("profile element useEffect :",response)
-        })
-        console.log(props.videos)
-    },[])
-    return (
-        <motion.div >
-            <div className='w-screen bg-slate-300'>
-                <main className="profile-page">
+const PageSkeleton = () => {
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opcaity:0 }}>
+           <div className='w-screen p-0 m-0'>
+                <main className="profile-page animate-pulse">
                     <section className="relative block" style={{ height: "500px" }}>
                         <div
-                            className="w-full blur-sm h-full bg-center bg-cover"
+                            className="w-screen blur-sm h-full bg-center bg-cover"
                             style={{
                                 blue: '',
                                 backgroundImage:
@@ -33,7 +18,7 @@ export const Profile = (props) => {
                         >
                             <span
                                 id="blackOverlay"
-                                className=" h-full absolute  "
+                                className="w-full h-full absolute  "
                             ></span>
                         </div>
                         <div
@@ -58,7 +43,7 @@ export const Profile = (props) => {
                     </section>
                     <section className="relative py-2 bg-gray-300">
                         <div className="container mx-auto px-4">
-                            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
+                            <div className="relative flex flex-col min-w-0 break-words bg-slate-200 h-screen w-full mb-6 shadow-xl rounded-lg -mt-64">
                                 <div className="px-6">
                                     <div className="flex flex-wrap justify-center">
                                         <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
@@ -100,20 +85,20 @@ export const Profile = (props) => {
                                             <div className="flex justify-center py-4 lg:pt-4 pt-8">
                                                 <div className="mr-4 p-3 text-center">
                                                     <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                                                        {props.subscribers}
+                                                       Loading..
                                                     </span>
                                                     <span className="text-sm text-gray-500">Subscribers</span>
                                                 </div>
-
+                                               
                                                 <div className="mr-4 p-3 text-center">
                                                     <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                                                        10
+                                                        Loading..
                                                     </span>
                                                     <span className="text-sm text-gray-500">Videos</span>
                                                 </div>
                                                 <div className="lg:mr-4 p-3 text-center">
                                                     <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                                                        89
+                                                        Loading..
                                                     </span>
                                                     <span className="text-sm text-gray-500">Total Comments</span>
                                                 </div>
@@ -122,11 +107,11 @@ export const Profile = (props) => {
                                     </div>
                                     <div className=' flex justify-center'>
 
-                                        <img src={props.dp} className='w-60 hover:scale-105 duration-700 rounded-full ' alt="" />
+                                        <img src="https://toppng.com/uploads/preview/avatar-png-11554021819gij72acuim.png" className='w-60 hover:scale-105 bg-slate-500 duration-700 rounded-full ' alt="" />
                                     </div>
                                     <div className=" mt-12">
-                                        <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2">
-                                            {props.title}
+                                        <h3 className="text-4xl font-semibold leading-normal  mb-2 text-gray-800 mb-2">
+                                            Loading...
                                         </h3>
                                         {/* <div className="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase">
                                             <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-500"></i>{" "}
@@ -144,8 +129,8 @@ export const Profile = (props) => {
                                     <div className="mt-10 py-10 border-t border-gray-300 text-center">
                                         <div className="flex flex-wrap justify-center">
                                             <div className="w-full overflow-y-scroll lg:w-9/12 px-4">
-                                                <p className="mb-4 text-lg leading-relaxed text-gray-800">
-                                                    {props.description}
+                                                <p className="mb-4 text-lg animate-pulse leading-relaxed text-gray-800">
+                                                    Loading
                                                 </p>
                                                 <a
                                                     href="#pablo"
@@ -164,40 +149,9 @@ export const Profile = (props) => {
                 </main>
             </div>
 
-            <div className='w-screen h-fit grid grid-cols-2 flex mx-2 gap-4 px-3 justify-center bg-slate-300'>
-                <div className='bg-slate-100 border border-8 border-slate-100 rounded-xl shadow shadow-slate-500 shadow-md overflow-y-scroll  container mb-20' style={{ height: "50%" }}>
-                    <div className='grid grid-cols-1 '>
-                        <button className='p-1 bg-blue-200 hover:bg-blue-400 m-3 rounded-xl' >Videos</button>
-                        {/* <button className='p-1 bg-blue-200 hover:bg-blue-400 m-3 rounded-xl' onClick={() => setVideo(!video)}>Posts</button> */}
-
-
-
-                    </div>
-                    {video ?
-                     <div className=''>
-                        <div className='flex grid grid:duration-500 md:grid-cols-1 md:duration-500 ld:grid-cols-2 lg:duration-500  sm:grid-cols-1 sm:duration-500 justify-center mx-auto sm:gap-4 p-8 container'>
-                            {props.videos.slice(0, 10).map((video) => {
-                                return (
-                                    <div className='mx-auto '>
-                                        <div className=' rounded-xl p-3 shadow-md shadow shadow-slate-500 shadow-md overflow-hidden'>
-
-                                        <youtube-video className="" 
-                                            width="640"
-                                            height="360" 
-                                            src={`https://www.youtube.com/watch?v=${video.id.videoId}`} controls />
-                                        </div>
-
-                                    </div>
-
-                                )
-                            })}
-                        </div>
-                    </div> : <div className='overflow-y-scroll'><Post title={props.title} userid={props.userid} dp={props.dp} /></div>}
-                </div>
-               
-
-            </div>
-
-        </motion.div>
-    )
+           
+    </motion.div>
+  )
 }
+
+export default PageSkeleton

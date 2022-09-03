@@ -10,6 +10,7 @@ router.post('/signup',controller.register)
 router.post('/login',controller.login)
 router.get('/youtube',controller.getYoutube)
 router.get('/profile/:id',controller.profile)
+router.get('/channelVideos/:channelId',controller.getChannelVideos)
 
 router.get('/adminDash',adminController.Admin)
 

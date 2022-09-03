@@ -13,7 +13,7 @@ const AdminPage = () =>{
     return(
         < >
         <Navbar/>
-        <div className="h-screen">
+        <div className="h-full pb-10">
         <AdminDash/>
             
         </div>

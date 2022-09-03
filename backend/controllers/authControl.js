@@ -6,6 +6,7 @@ import Channel from '../model/Channel.js'
 import jwt from 'jsonwebtoken'
 import fetch from 'node-fetch'
 import axios from 'axios'
+import Videos from '../model/Videos.js'
 
 const youtubeApiKey = 'AIzaSyD6VNsx-vJFfwLH8az3ibod973-C1BlkYE'
 const url = 'https://www.googleapis.com/youtube/v3'
@@ -37,8 +38,8 @@ export const controller = {
                           'X-RapidAPI-Host': 'youtube138.p.rapidapi.com'
                         }
                       };
-                    axios.request(options).then(function (response) {
-                        let data = response.data
+                     axios.request(options).then(async function (response) {
+                        let data = await response.data  
                         // console.log(data.contents[0].channel.channelId) //channel id here
                         let channelid =(data.contents[0].channel.channelId) //channel id here
 
@@ -54,7 +55,8 @@ export const controller = {
                           };
                         axios.request(stats).then(async function (response) {
                             
-                            console.log(response.data);
+                            console.log("response here ......................",response.data);
+                            console.log(response.data.items[0].id)
                             console.log("title :",response.data.items[0].snippet.title)
                             console.log("description :",response.data.items[0].snippet.description)
                             console.log("subs :",response.data.items[0].statistics.subscriberCount)
@@ -65,23 +67,54 @@ export const controller = {
                             if(userid){
                                 const channelDetails ={
                                     userId:userid._id,
+                                    channelId:response.data.items[0].id,
                                     channelTitle:response.data.items[0].snippet.title,
                                     channelDescription:response.data.items[0].snippet.description,
                                     subscriberCount:response.data.items[0].statistics.subscriberCount,
-                                    dp:response.data.items[0].snippet.thumbnails.medium.url
+                                    dp:response.data.items[0].snippet.thumbnails.high.url
                                 }
                                 const channel = new Channel(channelDetails)
                                 await channel.save()
                                 res.status(201).json('user created successfully')
+                                const options2 = {
+                                    method: 'GET',
+                                    url: 'https://youtube-v31.p.rapidapi.com/search',
+                                    params: {
+                                      channelId:response.data.items[0].id ,
+                                      part: 'snippet,id',
+                                      order: 'date',
+                                      maxResults: '50'
+                                    },
+                                    headers: {
+                                      'X-RapidAPI-Key': '98708987a5mshacfd574ef4cff3ap12c3c7jsn52d952a577b0',
+                                      'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com'
+                                    }
+                                  };
+                                  
+                                 await axios.request(options2).then(async function (response) {
+                                      console.log('_______________________',response.data.items);
+                                    let channelVideos = {
+                                        channelId:response.data.items[0].snippet.channelId,
+                                        videos:response.data.items
+                                    }
+                                    const video = new Videos(channelVideos)
+                                    await video.save()
+                                    console.log('video saved in collection')
+                            
+                                  }).catch(function (error) {
+                                      console.error(error);
+                                  });
                             }
                             
                         }).catch(function (error) {
-                            console.error(error);
+                            console.error(error); 
                         });
 
                     }).catch(function (error) {
                         console.error(error);
                     });
+
+                   
                   
 
                    
@@ -124,50 +157,6 @@ export const controller = {
     },
 
 
-//     getYoutube: async (req, res) => {
-//         console.log("got youtube request")
-//         await fetch(`${url}` + '/search?part=snippet&q=BrototypeMalayalam&key=' + `${youtubeApiKey}`).then((response) => {
-//             return response.json()
-//         }).then((data => {
-//             console.log(data)
-//             const channel_id = data.items[0].id.channelId
-//             const title = data.items[0].snippet.title
-//             const description = data.items[0].snippet.description
-//             console.log('channel id :', channel_id, title, description)
-//             console.log('snippet :', data.items[0].snippet.thumbnails)
-
-//             const channelDetails = {
-//                 title: title,
-//                 description: description,
-
-//             }
-
-//             fetch('https://www.googleapis.com/youtube/v3/channels?part=statistics&id=' + `${channel_id}` + '&key=AIzaSyC87sI8sEK3S7YP9smCG1EhWihdUh4fJCs').then((response) => {
-//                 // console.log(response)
-//                 return response.json()
-//             }).then((res) => {
-//                 console.log(res)
-//                 const subs = res.items[0].statistics.subscriberCount
-//                 const viewCount = res.items[0].statistics.viewCount
-//                 const videoCount = res.items[0].statistics.videoCount
-//                 console.log(subs, viewCount, videoCount)
-
-//                 let statistics = {
-//                     subscribers: subs,
-//                     views: viewCount,
-//                     videos: videoCount
-//                 }
-//                 sendData(channelDetails, statistics)
-//             })
-//             function sendData(channel, stat) {
-
-//                 res.send({ channel, stat })
-//             }
-
-
-//         }))
-//     }
-
 getYoutube: async (req, res) => {
     console.log("got youtube request")
      let channeldetails = await Channel.find().sort({subscriberCount: -1 })
@@ -176,13 +165,28 @@ getYoutube: async (req, res) => {
      res.status(200).json(channeldetails)
  
    
-},
+}, 
 profile: async (req,res)=>{
     console.log(req.params.id)
     let profileDetails = await Channel.findOne({userId:req.params.id})
     console.log("profile details : ",profileDetails)
-    res.status(200).json(profileDetails)
+   
+      let videoDetails = await Videos.findOne({channelId:profileDetails.channelId})
+      let details ={
+        profileDetails:profileDetails,
+        videos:videoDetails
+      }
+
+    res.status(200).json(details)
+},
+getChannelVideos: async (req,res) =>{
+    console.log(req.params.channelId)
+    let videoDetails = await Videos.findOne({channelId:req.params.channelId})
+   
+
+  res.status(200).json(videoDetails)
 }
+
 }
 
 

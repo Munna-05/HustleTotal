@@ -10,6 +10,8 @@ import { useState } from 'react'
 const AdminDash = () => {
     const [user, setUser] = useState(true)
     const [channel, setChannel] = useState(false)
+    const [userDetails,setuserDetails]=useState([])
+    const [channelDetails,setChannelDetails]=useState([])
     const changeState = () => {
         console.log("user", user)
         console.log('channel', channel)
@@ -19,10 +21,15 @@ const AdminDash = () => {
     useEffect(() => {
         axios.get('http://localhost:5001/auth/adminDash').then((response) => {
             console.log(response)
+            console.log(response.data.channel)
+            // console.lof(response.data.user)
+            setuserDetails( response.data.user)
+            setChannelDetails(response.data.channel)
+           
         })
-    })
+    },[])
     return (
-        <div className=''>
+        <div className='' >
             <div className='h-20 '></div>
 
             <div className='justify-center flex'>
@@ -34,7 +41,9 @@ const AdminDash = () => {
                 }
             </div>
             <div className=' border-black bg-slate-300 mx-auto mt-9 rounded py-3 px-3 container'>
-                {user ? <AdminUserTable/> :<AdminChannelDetails/>}
+               
+                {user ? <AdminUserTable data={userDetails}/> :<AdminChannelDetails data={channelDetails}/>}
+                
 
             </div>
 

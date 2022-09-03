@@ -28,18 +28,22 @@ const Navbar = () => {
 
 
     return (
-        <div>
+        <div className='w-screen'>
+            
               <ToastContainer
                 autoClose={2000}
                 hideProgressBar={false}
 
             />
 
-            <div class="bg-none dark:border-gray-600  container mx-auto "  >
-                <div class="container bg-slate-300 bg-opacity-10 bg-clipping-padding flex fixed flex-wrap justify-between items-center px-3 " style={{ backdropFilter: "blur(20px)" }}>
+            <div class="bg-none dark:border-gray-600 container mx-auto "  >
+                <div class="container bg-slate-300 bg-opacity-10 bg-clipping-padding flex fixed flex-wrap justify-between items-center" style={{ backdropFilter: "blur(20px)" , width:'100%'}}>
                     <a class="flex items-center">
                         {/* <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo"> */}
-                        <span class="self-center border px-3 py-1 border-slate-900 border-2 text-sm font-semibold whitespace-nowrap uppercase dark:text-dark">H u s t l e r</span>
+                      <Link to='/'>
+                      <span class="self-center border px-3 py-1 border-slate-900 border-2 hover:bg-slate-300 duration-200 text-sm font-semibold whitespace-nowrap uppercase dark:text-dark">H u s t l e r</span>
+
+                      </Link>  
                     </a>
                     {/* <button onClick={onclick}>click me</button> */}
                     <div class="flex md:order-2">
@@ -74,7 +78,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
-
+                        <div className='h-10'></div>
         </div>
     )
 }

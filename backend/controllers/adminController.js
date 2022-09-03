@@ -10,9 +10,9 @@ import axios from 'axios'
 export const adminController ={
     Admin: async (req,res) =>{
         console.log('admin request received')
-        const users = await User.find()
+        const users = await User.find() 
         const channels = await Channel.find()
-         
+           
          const allDetails ={
             user:users,
             channel:channels

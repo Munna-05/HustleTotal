@@ -1,39 +1,46 @@
+import { motion } from 'framer-motion'
 import React from 'react'
 
 const Skeletion = () => {
     return (
-        <div>
-                <div className=' flex justify-center'>
-                <div class="max-w-xxl duration-500  bg-slate-400 animate-pulse hover:transition duration-700 ease-in-out m-4 rounded-xl overflow-hidden shadow-slate-900 shadow-lg ">
-                   
-                    <div class="px-6 py-4 h-40 flex">
-                        <div className='rounded-full bg-slate-300 h-40 p-5 w-40'>
-                            <img className='' 
-                            alt="" src='' />
+        <motion.div initial={{ width: 0 }} animate={{ width: '100%'  }} exit={{ width: window.innerWidth }}>
+                 <div className=' flex animate-pulse justify-center'>
+                <div class="max-w-xxl border duration-500 hover:scale-105 bg-slate-300 hover:bg-slate-200 hover:transition duration-700 ease-in-out m-4 rounded-xl overflow-hidden shadow-slate-900 shadow-lg hover:shadow-md">
+
+                    <div class="px-10 py-4 h-auto flex">
+                        <div>
+                            <img className='rounded-full opacity-50 mt-10 mb-10 mx-16 h-25 w-40' src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png' alt="" />
                         </div>
 
-                        <div class="font-bold mx-3 text-xl  mb-2">
-                            <div className='pt-3 mt-5 bg-slate-300 rounded w-80'> </div>
-                            <div className='pt-3 mt-5 bg-slate-300 rounded w-60'> </div>
-                        
-                       <div className='my-3'>
-                       <p class="text-gray-700 max-w-sm px-3 h-40 text-xs">
-                         <br/>
-                       <span className='capitalize text-lg'> </span>
-                        <span className='px-3 h-10 py-0 text-xl  text-red-700'></span>
-                        </p>
-                       </div>
+                        <div class="font-bold mx-3 text-xl">
+                            <div className='pt-3 text-slate-400'>
+
+                                Loading...
+                            </div>
+
+                            <div className='my-3'>
+                                <div className=' overflow-y-scroll'>
+                                    <p class="text-gray-700 max-w-xl p-10 text-xs" style={{}} >
+                                            ...
+                                    </p>
+                                </div>
+                                <div className='mt-5'>
+                                <span className='capitalize text-lg text-slate-400'>total subscribers</span>
+                                <span className='px-3 h-10 py-0 text-xl  text-slate-400'>Loading..</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="px-6 flex justify-end pt-4 pb-2">
-                       
-                        <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full px-2 py-1 text-sm font-semibold text-gray-900 hover:text-white  mr-2 mb-2"></span>
-                        <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full px-5 py-1 text-sm font-semibold text-gray-900 hover:text-white  mr-2 mb-2"></span>
-                        <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full px-5 py-1 text-sm font-semibold text-gray-900 hover:text-white  mr-2 mb-2"></span>
-                    </div>
+                    {/* <div class="px-6 flex justify-end pb-2">
+                        
+                            <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full px-6 py-1 text-sm font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Profile</span>
+                        
+                        <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full px-2 py-1 text-sm font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Promotion</span>
+                        <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full px-5 py-1 text-sm font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Donate</span>
+                    </div> */}
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

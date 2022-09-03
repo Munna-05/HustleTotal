@@ -1,10 +1,11 @@
 import React from 'react'
 import Navbar from '../../components/Navbar'
 import './about.css'
+import {motion} from 'framer-motion'
 
 export const AboutPage = () => {
     return (
-        <div className='height'>
+        <motion.div className='height' initial={{ width: 0 }} animate={{ width: '100%'  }} exit={{ x: window.innerWidth }}>
             <div className=''>
                 <Navbar />
             </div>
@@ -13,19 +14,16 @@ export const AboutPage = () => {
             <div className="flex justify-center">
                    
                 
-            <div className='border flex p-5 grid-rows-1 p-12 rounded w-1/2 text-center  '>
+            <div className='bg-slate-300  flex p-5 grid-rows-1 p-12 rounded-lg shadow shadow-slate-500 shadow-lg w-1/2 text-center  '>
                    <div className=''>
-                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, veniam neque id quo expedita, quisquam asperiores, ad molestias corporis at nemo? Reprehenderit minima eveniet eligendi ducimus, nobis repudiandae et commodi.
-                    Dolorum repellendus quod deserunt nihil et ut odio veniam distinctio facilis, officia, enim alias similique deleniti accusamus suscipit iure eos aperiam? Corporis maxime nisi aut, delectus blanditiis illo error saepe.
-                    Minus exercitationem consequatur totam dignissimos rem deserunt officiis modi harum laborum, excepturi atque, dicta corrupti eos aperiam quam sunt possimus assumenda ullam, doloremque voluptatum commodi eius! Placeat quisquam officia tempore.
-                    Unde itaque excepturi tenetur qui adipisci? Quae, aut ex! Ex reiciendis earum, corporis, animi magni sint commodi rerum tenetur vel nesciunt iste porro placeat nemo est beatae eius omnis illo?
-                    Maiores quis natus soluta consectetur eius aliquam laudantium quidem distinctio rem eligendi perspiciatis quibusdam beatae, sunt nulla dolore? Consequuntur alias doloremque voluptatum molestiae error fugit ipsum, temporibus corrupti iusto ea.
-                
+                  We are introducing a new Social Media platform exclusively for the Youtube Content Creators.Here you can Sign up and get a insight about you and 
+                  your fellow content creators and their work so you can see how many of them are <span className='text-bold font-bold uppercase mx-1'>Hustling</span> to 
+                  outrun others, We also provide many more services like collaborations with other youtubers and Donations.
                    </div>
             </div>
             </div>
           
-        </div>
+        </motion.div>
     )
 }
 
