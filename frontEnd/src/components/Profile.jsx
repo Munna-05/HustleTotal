@@ -6,31 +6,41 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import 'youtube-video-js'
 import { YoutubeVideoElement } from 'youtube-video-js'
+import { useParams } from 'react-router-dom'
 
 export const Profile = (props) => {
     const [video, setVideo] = useState(true)
+    const [data, setData] = useState([])
+    let { id } = useParams()
     useEffect(() => {
         console.log("channel id =", props.channelId)
-        let chID=props.channelId
-        axios.get(`http://localhost:5001/auth/channelVideos/${chID}`).then((response)=>{
-            console.log("profile element useEffect :",response)
+        let chID = props.channelId
+        axios.get(`http://localhost:5001/auth/channelVideos/${chID}`).then((response) => {
+            console.log("profile element useEffect :", response)
+            console.log("response videos ", response.data.videos)
+            setData(response.data.videos)
         })
-        console.log(props.videos)
-    },[])
+        // setData(props.videos)
+
+
+
+    }, [props])
     return (
         <motion.div >
-            <div className='w-screen bg-slate-300'>
-                <main className="profile-page">
+            <div className=' bg-slate-300'>
+                <main className="profile-page h-fit">
                     <section className="relative block" style={{ height: "500px" }}>
                         <div
-                            className="w-full blur-sm h-full bg-center bg-cover"
-                            style={{
-                                blue: '',
-                                backgroundImage:
-                                    "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')",
+                            className="w-full blur-sm h-full bg-center overflow-hidden bg-cover"
 
-                            }}
                         >
+                            {data.slice(0, 1).map((image) => {
+                                return (
+                                    <>
+                                        <img src={image.snippet.thumbnails.high.url} style={{width:"100%" ,position:'relative', top:'-250px'}} alt="" />
+                                    </>
+                                )
+                            })}
                             <span
                                 id="blackOverlay"
                                 className=" h-full absolute  "
@@ -164,37 +174,65 @@ export const Profile = (props) => {
                 </main>
             </div>
 
-            <div className='w-screen h-fit grid grid-cols-2 flex mx-2 gap-4 px-3 justify-center bg-slate-300'>
-                <div className='bg-slate-100 border border-8 border-slate-100 rounded-xl shadow shadow-slate-500 shadow-md overflow-y-scroll  container mb-20' style={{ height: "50%" }}>
+            <div className='  grid grid-cols-2 flex flex gap-4 px-4 py-4 justify-center bg-slate-300 pb-8' style={{ height: '100vh' }}>
+                <div className='bg-slate-100 border border-8 border-slate-100 rounded-xl shadow shadow-slate-500 shadow-md overflow-y-scroll  container mb-20' style={{ height: "100%" }}>
                     <div className='grid grid-cols-1 '>
-                        <button className='p-1 bg-blue-200 hover:bg-blue-400 m-3 rounded-xl' >Videos</button>
+                        <div className='p-1 bg-blue-200 hover:bg-blue-400 m-3 rounded-xl' >Videos</div>
                         {/* <button className='p-1 bg-blue-200 hover:bg-blue-400 m-3 rounded-xl' onClick={() => setVideo(!video)}>Posts</button> */}
 
 
 
                     </div>
                     {video ?
-                     <div className=''>
-                        <div className='flex grid grid:duration-500 md:grid-cols-1 md:duration-500 ld:grid-cols-2 lg:duration-500  sm:grid-cols-1 sm:duration-500 justify-center mx-auto sm:gap-4 p-8 container'>
-                            {props.videos.slice(0, 10).map((video) => {
-                                return (
-                                    <div className='mx-auto '>
-                                        <div className=' rounded-xl p-3 shadow-md shadow shadow-slate-500 shadow-md overflow-hidden'>
+                        <div className=''>
+                            <div className='flex grid grid:duration-500 md:grid-cols-1 md:duration-500 lg:grid-cols-1 lg:duration-500  sm:grid-cols-1 sm:duration-500 justify-center mx-auto sm:gap-4 p-8 container'>
+                                {data.slice(0, 10).map((video) => {
+                                    return (
+                                        <div className='mx-auto '>
+                                            <div className=' rounded-xl p-3 shadow-md shadow shadow-slate-500 shadow-md overflow-hidden'>
 
-                                        <youtube-video className="" 
-                                            width="640"
-                                            height="360" 
-                                            src={`https://www.youtube.com/watch?v=${video.id.videoId}`} controls />
+                                                <youtube-video className=""
+                                                    width="720"
+                                                    height="360"
+                                                    src={`https://www.youtube.com/watch?v=${video.id.videoId}`} controls />
+                                            </div>
+
                                         </div>
 
-                                    </div>
-
-                                )
-                            })}
-                        </div>
-                    </div> : <div className='overflow-y-scroll'><Post title={props.title} userid={props.userid} dp={props.dp} /></div>}
+                                    )
+                                })}
+                            </div>
+                        </div> : <div className='overflow-y-scroll'><Post title={props.title} userid={props.userid} dp={props.dp} /></div>}
                 </div>
-               
+                <div className='bg-slate-100 border border-8 border-slate-100 rounded-xl shadow shadow-slate-500 shadow-md overflow-y-scroll  container mb-20' style={{ height: "100%" }}>
+                    <div className='grid grid-cols-1 '>
+                        <div className='p-1 bg-blue-200 hover:bg-blue-400 m-3 rounded-xl' >Posts</div>
+                        {/* <button className='p-1 bg-blue-200 hover:bg-blue-400 m-3 rounded-xl' onClick={() => setVideo(!video)}>Posts</button> */}
+
+
+
+                    </div>
+                    {video ?
+                        <div className=''>
+                            <div className='flex grid grid:duration-500 md:grid-cols-1 md:duration-500 lg:grid-cols-1 lg:duration-500  sm:grid-cols-1 sm:duration-500 justify-center mx-auto sm:gap-4 p-8 container'>
+                                {data.slice(0, 10).map((video) => {
+                                    return (
+                                        <div className='mx-auto '>
+                                            <div className=' rounded-xl p-3 shadow-md shadow shadow-slate-500 shadow-md overflow-hidden'>
+                                                <img className='' style={{ width: '40vw' }} src={video.snippet.thumbnails.high.url} alt="" />
+
+                                            </div>
+                                            <div className='flex'><input type="text" className='w-full my-3 px-5 py-1 shadow-inner shadow-slate-600 bg-slate-300 rounded-lg' placeholder='comment' name="" id="" />
+                                                <button className='mx-2 bg-blue-300 my-auto px-3 py-1 rounded-lg'>Post</button>
+                                            </div>
+                                        </div>
+
+                                    )
+                                })}
+                            </div>
+                        </div> : <div className='overflow-y-scroll'><Post title={props.title} userid={props.userid} dp={props.dp} /></div>}
+                </div>
+
 
             </div>
 

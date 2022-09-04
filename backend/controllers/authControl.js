@@ -167,7 +167,7 @@ getYoutube: async (req, res) => {
    
 }, 
 profile: async (req,res)=>{
-    console.log(req.params.id)
+    console.log(req.params.id) 
     let profileDetails = await Channel.findOne({userId:req.params.id})
     console.log("profile details : ",profileDetails)
    

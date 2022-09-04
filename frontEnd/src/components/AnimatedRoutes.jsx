@@ -10,6 +10,7 @@ import AdminLogin from '../Pages/Home/AdminLogin';
 import AdminPage from '../Pages/Home/AdminPage';
 import { useLocation } from 'react-router-dom';
 import {AnimatePresence} from 'framer-motion'
+import { Profile } from './Profile';
 
 
 const AnimatedRoutes = () => {

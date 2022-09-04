@@ -32,8 +32,8 @@ export const MdCard = (props) => {
                         <Link to={`/profile/${props.id}`}>
                         <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full text-xs px-2 py-1 font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Profile</span>
                         </Link>
-                        <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full text-xs px-2 py-1 font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Promotion</span>
-                        <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full text-xs px-2 py-1 font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Donate</span>
+                        {/* <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full text-xs px-2 py-1 font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Promotion</span> */}
+                        {/* <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full text-xs px-2 py-1 font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Donate</span> */}
                     </div>
                 </div>
             </div>

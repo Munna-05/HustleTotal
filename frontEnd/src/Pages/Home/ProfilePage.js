@@ -6,6 +6,8 @@ import axios from 'axios'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import PageSkeleton from '../../components/PageSkeleton'
+
+
 export const ProfilePage = () => {
     const {id} = useParams()
     const [name, setName] = useState('')
@@ -26,7 +28,7 @@ export const ProfilePage = () => {
         
         setTimeout(() => {
             setSkeleton(false)
-        }, 1500);
+        }, 2000);
         if(response.data.channelTitle==""){
 
         }else{
