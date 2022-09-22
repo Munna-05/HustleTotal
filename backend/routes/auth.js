@@ -11,6 +11,11 @@ router.post('/login',controller.login)
 router.get('/youtube',controller.getYoutube)
 router.get('/profile/:id',controller.profile)
 router.get('/channelVideos/:channelId',controller.getChannelVideos)
+router.get('/getchats',controller.getChats)
+router.post('/verifyChannel/:id',controller.verifyChannel)
+router.get('/userDetails/:id',controller.getUser)
+router.post('/userUpdate/:id',controller.updateUser)
+
 
 router.get('/adminDash',adminController.Admin)
 

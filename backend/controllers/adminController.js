@@ -20,5 +20,5 @@ export const adminController ={
          console.log(allDetails)
          res.status(200).json(allDetails)
     }
-
-}
+ 
+} 
