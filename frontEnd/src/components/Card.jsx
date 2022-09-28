@@ -7,6 +7,7 @@ import {motion} from 'framer-motion'
 
 export const Card = (props) => {
     const token = localStorage.getItem('token')
+    const senderId = localStorage.getItem('userId')
     // localStorage.setItem('name',props.name)
     // localStorage.setItem('subscribers',props.subs.toLocaleString())
     return (
@@ -44,7 +45,9 @@ export const Card = (props) => {
                             <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full px-6 py-1 text-sm font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Profile</span>
                         </Link>
                         {/* <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full px-2 py-1 text-sm font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Promotion</span> */}
-                        {/* <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full px-5 py-1 text-sm font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Donate</span> */}
+                      <Link to={`/donate/${props.id}/${senderId}`}>
+                        <span class="inline-block bg-gray-300 shadow shadow-slate-600 hover:bg-gray-500 span rounded-full px-5 py-1 text-sm font-semibold text-gray-900 hover:text-white  mr-2 mb-2">Donate</span>
+                      </Link>
                     </div>
                     :
                     <div class="px-6 flex justify-end pb-2">

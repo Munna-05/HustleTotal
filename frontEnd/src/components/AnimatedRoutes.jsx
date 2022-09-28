@@ -11,11 +11,13 @@ import AdminPage from '../Pages/Home/AdminPage';
 import { useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion'
 import { Profile } from './Profile';
+import AllFeed from '../Pages/Home/AllFeed';
 import { Messenger } from '../Pages/Home/Messenger';
+import Donation from '../Pages/Home/Donation'
 import UserProfile from '../Pages/Home/UserProfile';
 
 const AnimatedRoutes = () => {
-    const location = useLocation()
+    const location = useLocation() 
 
     return (
         <div>
@@ -31,6 +33,8 @@ const AnimatedRoutes = () => {
                     <Route path='/adminPage' element={<AdminPage />} />
                     <Route path="/chat" element={<Messenger />} />
                     <Route path='/userProfile/:userid' element={<UserProfile/>} />
+                    <Route path='/donate/:receiver/:sender' element={<Donation/>}/>
+                    <Route path='/feed/:userDetails' element={<AllFeed/>}/>
                 </Routes>
             </AnimatePresence>
         </div>

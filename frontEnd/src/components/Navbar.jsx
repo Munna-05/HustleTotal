@@ -20,6 +20,7 @@ const Navbar = (props) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const userid = localStorage.getItem('userId')
+    const invert=props.invert
    
   
 
@@ -68,7 +69,7 @@ const Navbar = (props) => {
                         }
                     </div>
                     <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-                        <ul class="flex flex-col p-4 mt-4  rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 ">
+                        <ul class={`flex flex-col p-4 mt-4 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 ${invert?invert:null}`}>
                             <Link to='/'>
                                 <a href="#" class="block py-2 pr-4 pl-3 text-xs text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Home</a>
                             </Link>
@@ -76,7 +77,9 @@ const Navbar = (props) => {
                                 <a href="/about" class="block py-2 pr-4 pl-3 text-xs text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white">About</a>
                             </Link>
                             <li>
+                                <Link to={`/feed/${userid}`}>
                                 <a href="#" class="block py-2 pr-4 pl-3 text-xs text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white">Feed</a>
+                                </Link>
                             </li>
                             <li>
                                 {token?

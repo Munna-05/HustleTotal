@@ -8,6 +8,9 @@ import jw from 'jsonwebtoken'
 import { Server } from 'socket.io'
 import http from 'http'
 import multer from 'multer'
+import {dirname} from 'path'
+import {join} from 'path'  
+import path from 'path'
 
 
 const apiKey = "AIzaSyC87sI8sEK3S7YP9smCG1EhWihdUh4fJCs"
@@ -27,6 +30,8 @@ app.use(express.json())
 
 dotenv.config()
 
+
+
 const PORT = process.env.PORT || 5002
 
 
@@ -44,6 +49,7 @@ mongoose.connect('mongodb+srv://munna:munna123@cluster0.hcyg4.mongodb.net/Hustle
  
 app.use('/auth', authRouter)
 app.use('/user', userRouter)
+app.use('/uploads',express.static('./public/images'))
 
 
 

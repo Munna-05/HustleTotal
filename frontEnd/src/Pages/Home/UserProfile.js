@@ -14,6 +14,7 @@ const UserProfile = () => {
     const [email, setEmail] = useState('')
     const [description, setDescription] = useState('')
     const { user } = useSelector((state) => ({ ...state.user }))
+    const color ='invert'
 
 
     useEffect(() => {
@@ -23,6 +24,7 @@ const UserProfile = () => {
                 console.log("response details", response)
                 setName(response.data.name)
                 setEmail(response.data.email)
+                setDescription(response.data.about)
                
 
 
@@ -38,8 +40,8 @@ const UserProfile = () => {
 
     return (
         <motion.div >
-            <div className='fixed z-10 '>< Navbar /></div>
-            <UserProfileDetails name={name} email={email} id={userid} />
+            <div className='fixed w-screen z-10 '>< Navbar invert={color}/></div>
+            <UserProfileDetails name={name} email={email} id={userid}  description={description} />
         </motion.div>
     )
 }

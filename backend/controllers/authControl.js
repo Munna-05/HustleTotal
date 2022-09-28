@@ -9,6 +9,7 @@ import Videos from '../model/Videos.js'
 import { dbController } from './dbController.js'
 
 
+
 const youtubeApiKey = 'AIzaSyD6VNsx-vJFfwLH8az3ibod973-C1BlkYE'
 const url = 'https://www.googleapis.com/youtube/v3'
 const empty = {}
@@ -20,7 +21,7 @@ export const controller = {
     register: async (req, res) => {
         try {
             console.log("........................................", req.body)
-            if (req.body.name === "" || req.body.email === "" || req.body.password == "" || req.body.password != req.body.rpass ) {
+            if (req.body.name === "" || req.body.email === "" || req.body.password == "" || req.body.password != req.body.rpass) {
                 res.send('invalid credentials')
                 // res.status(500).json('invalid credentials')
                 console.log('invalid credentials')
@@ -128,16 +129,18 @@ export const controller = {
         console.log(req.body)
         try {
             console.log("...................login details", req.body)
+            //validating user details
             if (req.body.email === "") {
                 res.status(401).json('Invalid Email')
                 console.log('Invalid Email')
             } else {
                 console.log('im here')
-                const user = await User.findOne({ email: req.body.email })
+                const user = await User.findOne({ email: req.body.email }) //finding user if credentials are correct
                 if (user) {
                     if (user.password == req.body.password) {
                         console.log("correct credentials")
                         const accessToken = jwt.sign({ id: user._id }, 'mySecretKey')
+                        //sending response with user details and JWT
                         res.json({
                             id: user._id, username: user.name, email: user.email, accessToken
                         })
@@ -152,62 +155,53 @@ export const controller = {
             }
         } catch (error) {
             console.log(error)
+            res.send('Invalid Email')
+
         }
     },
-
-
     getYoutube: async (req, res) => {
-        console.log("got youtube request")
-        let channeldetails = await Channel.find().sort({ subscriberCount: -1 })
-
-        console.log("channeldetails : ................", channeldetails)
-        res.status(200).json(channeldetails)
+        try {
+            console.log("got youtube request")
+            let channeldetails = await Channel.find().sort({ subscriberCount: -1 }) //getting all channel details in descending order by subscriber count
+            console.log("channeldetails : ................", channeldetails)
+            res.status(200).json(channeldetails)
+        } catch (err) {
+            res.send(err)
+        }
     },
     profile: async (req, res) => {
         console.log(req.params.id)
-        let profileDetails = await Channel.findOne({ userId: req.params.id })
-        console.log("profile details : ", profileDetails)
-
-        let videoDetails = await Videos.findOne({ channelId: profileDetails.channelId })
+        let profileDetails = await Channel.findOne({ userId: req.params.id }) //getting Channel profile details
+        let videoDetails = await Videos.findOne({ channelId: profileDetails.channelId }) //getting channel videos
         let details = {
             profileDetails: profileDetails,
             videos: videoDetails
         }
-
         res.status(200).json(details)
     },
     getChannelVideos: async (req, res) => {
-        console.log(req.params.channelId)
         let videoDetails = await Videos.findOne({ channelId: req.params.channelId })
-
-
         res.status(200).json(videoDetails)
     },
     getChats: async (req, res) => {
-       console.log('chats route')
-
+        console.log('chats route')
         res.send("chats")
     },
-    getUser:async(req,res) =>{
-        if(req.params.id===""){
+    getUser: async (req, res) => {
+        if (req.params.id === "") {
             res.status(404).json("user id missing")
-        }else{
-
-            dbController.findUser(req.params.id).then((response)=>{
-            console.log("database controller working",response)
-            res.status(200).json(response)
-           })
+        } else {
+            dbController.findUser(req.params.id).then((response) => {
+                // console.log("database controller working", response)
+                res.status(200).json(response)
+            })
         }
     },
-
     verifyChannel: async (req, res) => {
         console.log(req.body)
-
-
         const userid = await User.findOne({ _id: req.params.id })
         try {
             console.log('verifying youtube channel')
-
             const stats = {
                 method: 'GET',
                 url: 'https://youtube-v31.p.rapidapi.com/channels',
@@ -219,10 +213,6 @@ export const controller = {
             };
             axios.request(stats).then((response) => {
                 console.log(response.data.items)
-
-
-                // console.log("returned user details after saving :", userid)
-
                 const channelDetails = {
                     userId: userid._id,
                     channelId: response.data.items[0].id,
@@ -237,25 +227,69 @@ export const controller = {
                 res.status(201).json('user created successfully')
                 res.send(response.data.items)
             })
-
-
-
         } catch (error) {
             res.send("no channel id")
         }
-
-
     },
-    updateUser:(req,res) =>{
+    updateUser: (req, res) => {
         console.log(req.body)
-        dbController.findAndUpdate(req.params.id,req.body).then(()=>{
-
+        dbController.findAndUpdate(req.params.id, req.body).then(() => {
             res.status(200).json('user updated')
         })
         console.log(".....request received.......")
 
-    }
+    },
+    saveImage: (req, res) => {
 
+        console.log('received imageSave request')
+        res.send('image saved')
+    },
+    savePost: async (req, res) => {
+        console.log('savePost request received')
+        // console.log(req.body)
+
+        // const user = await dbController.findUser(req.body.userId)
+        // user ? console.log('push post') : dbController.savePost(req.body).then(() => {
+        //     res.status(200).json('post saved')
+        // })
+        dbController.savePost(req.body).then(() => {
+            res.status(200).json('post Saved')
+        })
+
+
+    },
+    getPost: async (req, res) => {
+        try {
+            console.log('getPost request received', req.params.userid)
+            const posts = await dbController.getAllPosts(req.params.userid)
+            console.log('posts', posts)
+            const userDetails = await dbController.findUser(req.params.userId)
+            const details = {
+                post: posts,
+                user: userDetails
+            }
+            posts? res.status(200).json(details):res.status(400).json('No Post')
+            console.log('userDetails', userDetails)
+           
+        } catch (err) {
+            res.status(400).json(err)
+        }
+
+    },
+    allFeeds: async (req, res) => {
+        try {
+            const userId = req.params.userId
+            const feed = await dbController.allFeeds()
+            const userDetails = await dbController.findUser(feed.userId)
+            const datas = {
+                userDetails: userDetails,
+                feedDetails: feed
+            }
+            res.status(200).json(datas)
+        } catch (err) {
+            res.status(404).json('feeds not found')
+        }
+    }
 
 
 }

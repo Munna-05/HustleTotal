@@ -23,7 +23,7 @@ export const ProfilePage = () => {
         console.log(id)
       
         axios.get(`http://localhost:5001/auth/profile/${id}`).then((response)=>{
-            console.log(response)
+            console.log(response.data)
             
         
         setTimeout(() => {
@@ -48,7 +48,7 @@ export const ProfilePage = () => {
   return (
 
     <motion.div className='h-screen bg-slate-300' >
-        <div className='fixed z-10 '>< Navbar/></div>
+        <div className='fixed w-full z-10 '>< Navbar/></div>
        
         <div className=''>
             {skeleton?<div className=''><PageSkeleton/></div>:

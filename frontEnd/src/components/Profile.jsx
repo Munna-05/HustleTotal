@@ -28,7 +28,7 @@ export const Profile = (props) => {
 
     }, [])
     return (
-        <motion.div initial={{ width: 0 }} animate={{ width: '100%'  }} exit={{ opacity:1 }}>
+        <motion.div initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ opacity: 1 }}>
             <div className=' bg-slate-300'>
                 <main className="profile-page h-fit">
                     <section className="relative block" style={{ height: "500px" }}>
@@ -140,15 +140,15 @@ export const Profile = (props) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <motion.div className=' flex justify-center'initial={{ width: 0 }} animate={{ width: '100%'  }} exit={{ opacity:0 }}
-                                     transition={{ type: "spring", stiffness: 100 }}>
+                                    <motion.div className=' flex justify-center' initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ opacity: 0 }}
+                                        transition={{ type: "spring", stiffness: 100 }}>
 
                                         <img src={props.dp} className='w-60 hover:scale-105 duration-700 rounded-full ' alt="" />
                                     </motion.div>
-                                    <motion.div className=" mt-12"initial={{ width: 0 }} animate={{ width: '100%'  }} exit={{ opacity:0 }}
-                                     transition={{ type: "spring", stiffness: 100 ,duration:'3s'}}
-                                     
-                                     >
+                                    <motion.div className=" mt-12" initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ opacity: 0 }}
+                                        transition={{ type: "spring", stiffness: 100, duration: '3s' }}
+
+                                    >
                                         <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2">
                                             {props.title}
                                         </h3>
@@ -189,25 +189,35 @@ export const Profile = (props) => {
             </div>
 
             {/* create post */}
-            <div className='w-full flex p-5 bg-slate-300 justify-center'>
+            <form action="">
 
-               <div className=''>
-               <div className='h-40 bg-slate-100 rounded-lg px-3 py-3' style={{width:'40vw'}}>
-                    <input type="text" className='h-20 w-full rounded bg-slate-300 text-sm px-2' placeholder='Write your Post Here' />
-                    <div className='flex px-1 py-3 justify-between'>
-                        <div>
-                            <button className='px-3 py-1 bg-blue-400 rounded text-slate-100 mr-3'>Photos/Videos</button>
-                            <button className='px-3 py-1 bg-blue-400 rounded text-slate-100 mr-3'>Photos/Videos</button>
-                            <button className='px-3 py-1 bg-blue-400 rounded text-slate-100 mr-3'>Photos/Videos</button>
+                <div className='w-full flex p-5 bg-slate-300 justify-center'>
+
+                    <div className=''>
+                        <div className='h-auto bg-slate-100 rounded-lg px-3 py-3' style={{ width: '40vw' }}>
+                            <textarea type="text"  className='h-20 p-2 w-full rounded bg-slate-200 border border-slate-400 my-1 text-sm px-2' placeholder={`write your post , ${props.title}`} />
+                            <div className='flex px-1 py-3 justify-between'>
+
+                                <label htmlFor='file' className='px-4 bg-blue-400 hover:bg-blue-600 py-1 rounded-full text-white'>
+                                    Add Image
+                                    <input type="file" id='file'  class=" w-full mx-2  text-sm  text-slate-500
+                                file:mx-auto file:py-2 file:px-4
+                                file:rounded-full file:border-0
+                                file:text-sm file:font-semibold
+                                file:bg-violet-50 file:text-violet-700
+                                hover:file:bg-violet-100
+                                " style={{ display: 'none' }} />
+
+                                </label>
+
+
+                                <label className='px-3 cursor py-1 bg-blue-400 rounded-lg text-slate-100 hover:bg-blue-600'>Post</label></div>
+
+
                         </div>
-
-                                            
-                        <button className='px-3  py-1 bg-blue-400 rounded-lg text-slate-100 hover:bg-blue-600'>Post</button></div>
-
-
+                    </div>
                 </div>
-               </div>
-            </div>
+            </form>
 
             <div className='  grid grid-cols-2 flex flex gap-4 px-4 py-4 justify-center bg-slate-300 pb-8' style={{ height: '100vh' }}>
                 <div className='bg-slate-100 border border-8 border-slate-100 rounded-xl shadow shadow-slate-500 shadow-md overflow-y-scroll  container mb-20' style={{ height: "100%" }}>
@@ -258,11 +268,14 @@ export const Profile = (props) => {
                                         return (
                                             <div className='mx-auto '>
                                                 <div className=' rounded-xl p-3 shadow-md shadow shadow-slate-500 shadow-md overflow-hidden'>
+                                                    <div className='flex rounded-full w-fit p-1 shadow shadow-slate-300 shadow-md h-10 my-2 s '><img src={props.dp} className='rounded-full' alt="" />
+                                                        <span className='mx-3 text-slate-600 my-auto'>{props.title}</span>
+                                                    </div>
                                                     <img className='' style={{ width: '40vw' }} src={video.snippet.thumbnails.high.url} alt="" />
-
+                                                    <div className='flex mt-1'><span className='text-sm text-slate-400'>comments</span></div>
+                                                    <div className='flex'><input type="text" className='w-full mt-3 px-5 py-1 shadow-inner shadow-slate-600 bg-slate-300 rounded-lg' placeholder='comment' name="" id="" />
+                                                    <button className='mx-2 bg-blue-300 mt-3 px-3 py-1 rounded-lg'>Post</button>
                                                 </div>
-                                                <div className='flex'><input type="text" className='w-full my-3 px-5 py-1 shadow-inner shadow-slate-600 bg-slate-300 rounded-lg' placeholder='comment' name="" id="" />
-                                                    <button className='mx-2 bg-blue-300 my-auto px-3 py-1 rounded-lg'>Post</button>
                                                 </div>
                                             </div>
 
